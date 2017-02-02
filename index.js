@@ -188,7 +188,7 @@ module.exports = {
       percyBuildPromise.then(
         function(buildResponse) {
           var percyBuildData = buildResponse.body.data;
-          console.log('\n[percy] Build created:', percyBuildData.attributes['web-url']);
+          // console.log('\n[percy] Build created:', percyBuildData.attributes['web-url']);
 
           // Upload all missing build resources.
           var missingResources = parseMissingResources(buildResponse);
@@ -207,7 +207,7 @@ module.exports = {
                 // because build resources must be fully uploaded before snapshots are finalized.
                 var promise = percyClient.uploadResource(percyBuildData.id, content);
                 promise.then(function(response) {
-                  console.log('\n[percy] Uploaded new build resource: ' + resource.resourceUrl);
+                  // console.log('\n[percy] Uploaded new build resource: ' + resource.resourceUrl);
                 }, handlePercyFailure);
                 buildResourceUploadPromises.push(promise);
                 return promise;
@@ -379,7 +379,7 @@ module.exports = {
       }
 
       // TODO: simplify this callback nesting, but retain strong ordering guarantees.
-      console.log('[percy] Finalizing build...');
+      // console.log('[percy] Finalizing build...');
       percyBuildPromise.then(function(buildResponse) {
         var percyBuildData = buildResponse.body.data;
         // We need to wait until all build resources are uploaded before finalizing the build.
@@ -399,7 +399,7 @@ module.exports = {
               // Attempt to make our logging come last, giving time for test output to finish.
               var url = percyBuildData.attributes['web-url'];
               process.nextTick(function() {
-                console.log('[percy] Visual diffs are now processing:', url);
+                // console.log('[percy] Visual diffs are now processing:', url);
               });
             }, handleError);
           }, handleError);
